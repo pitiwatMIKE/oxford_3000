@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { createContext, useEffect, useState } from "react";
@@ -10,7 +11,9 @@ const AuthContext = createContext<Partial<UserInfo>>({});
 
 export default function AuthContextProvider({ children }: any) {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  console.log({ status, session });
 
   useEffect(() => {
     if (session) {
@@ -31,6 +34,8 @@ export default function AuthContextProvider({ children }: any) {
   };
 
   return (
-    <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={userInfo}>
+      {status === "loading" ? <Loading /> : <>{children}</>}
+    </AuthContext.Provider>
   );
 }
