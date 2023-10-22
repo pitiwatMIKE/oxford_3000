@@ -13,8 +13,6 @@ export default function AuthContextProvider({ children }: any) {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  console.log({ status, session });
-
   useEffect(() => {
     if (session) {
       router.push("/");
@@ -33,9 +31,11 @@ export default function AuthContextProvider({ children }: any) {
     email,
   };
 
+  if (status === "loading") {
+    return <Loading />;
+  }
+
   return (
-    <AuthContext.Provider value={userInfo}>
-      {status === "loading" ? <Loading /> : <>{children}</>}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );
 }
