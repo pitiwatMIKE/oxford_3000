@@ -10,7 +10,7 @@ export default function VocabContextProvider({ children }: any) {
     const getVocab = async () => {
       const key = "vocabList";
       const jsonVocab = localStorage.getItem(key);
-      console.log({jsonVocab})
+      
       if (jsonVocab) {
         setVocabList(JSON.parse(jsonVocab));
       } else {

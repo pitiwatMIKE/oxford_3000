@@ -8,8 +8,8 @@ const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI!;
 
 mongoose
   .connect(MONGODB_URI)
-  .then(() => console.log("DB connected"))
-  .catch((err) => console.log(err.message));
+  .then(() => console.info("DB connected"))
+  .catch((err) => console.error(err.message));
 
 const seedVocab: Partial<Vocab>[] = [];
 

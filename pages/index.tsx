@@ -6,7 +6,6 @@ export default function Home() {
   const vocabList = useContext(VocabContext);
 
   const renderVocabList = () => {
-    console.log({ vocabList });
     return vocabList.map((vocab) => <div key={vocab._id}>{vocab.eng}</div>);
   };
   return (
