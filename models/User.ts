@@ -1,14 +1,22 @@
 import mongoose from "mongoose";
 
 export interface User extends mongoose.Document {
-  username: string;
+  email: string;
   password: string;
 }
 
+export const validateEmail = function (email: string) {
+  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return re.test(email);
+};  
+
 const UserSchema = new mongoose.Schema<User>({
-  username: {
+  email: {
     type: String,
+    unique: true,
     required: true,
+    trim: true,
+    validate: [validateEmail, "Please fill a valid email address"],
   },
   password: {
     type: String,
@@ -16,4 +24,5 @@ const UserSchema = new mongoose.Schema<User>({
   },
 });
 
-export default mongoose.models.User || mongoose.model<User>("User", UserSchema);
+export default mongoose.models.User<User> ||
+  mongoose.model<User>("User", UserSchema);
