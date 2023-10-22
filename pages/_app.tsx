@@ -1,4 +1,5 @@
 import AuthContextProvider from "@/store/AuthContext";
+import VocabContextProvider from "@/store/VocabContext";
 import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
@@ -10,7 +11,9 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <AuthContextProvider>
-        <Component {...pageProps} />
+        <VocabContextProvider>
+          <Component {...pageProps} />
+        </VocabContextProvider>
       </AuthContextProvider>
     </SessionProvider>
   );

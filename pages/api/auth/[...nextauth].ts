@@ -22,16 +22,18 @@ export const authOptions = {
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        const res = await fetch(process.env.BACKEND_API + "/user/login", {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_BACKEND_API + "/user/login",
+          {
+            method: "POST",
+            body: JSON.stringify(credentials),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
         const user = await res.json();
 
         // If no error and we have user data, return it
         if (res.ok && user) {
-
           return user;
         }
         // Return null if user data could not be retrieved
