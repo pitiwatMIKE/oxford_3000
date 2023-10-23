@@ -1,45 +1,58 @@
 import Loading from "@/components/Loading";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { ReactNode, createContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 
-interface UserInfo {
-  email: string | null;
-}
 interface Props {
   children: ReactNode;
 }
+interface AuthValue {
+  email: string;
+  setLoadingLogin: Dispatch<SetStateAction<boolean>>;
+}
 
-const AuthContext = createContext<Partial<UserInfo>>({});
+export const AuthContext = createContext<AuthValue>({
+  email: "",
+  setLoadingLogin: () => false,
+});
 
 export default function AuthContextProvider({ children }: Props) {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const [loadingLogin, setLoadingLogin] = useState(false);
 
   useEffect(() => {
-    if (status === "loading") return;
+    if (status === "loading" || loadingLogin) return;
     if (session) {
       router.push("/");
       setValue();
     } else {
       router.push("/login");
     }
-  }, [status]);
+  }, [status, loadingLogin]);
 
   const [email, setEmail] = useState<string>("");
   const setValue = () => {
     if (session?.user?.email) setEmail(session.user.email);
   };
 
-  const userInfo: UserInfo = {
+  const authValue: AuthValue = {
     email,
+    setLoadingLogin,
   };
 
-  if (status === "loading") {
+  if (status === "loading" || loadingLogin) {
     return <Loading />;
   }
 
   return (
-    <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
   );
 }

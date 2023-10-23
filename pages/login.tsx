@@ -5,9 +5,12 @@ import { useRouter } from "next/router";
 
 export default function login() {
   const router = useRouter();
+
   const { data: session } = useSession();
+
   if (session) {
     router.push("/");
+    return <></>;
   }
 
   return (

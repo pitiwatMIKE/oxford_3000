@@ -1,15 +1,15 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FcContacts, FcUnlock } from "react-icons/fc";
-import Loading from "./Loading";
 import SpringMotion from "./layout/SpringMotion";
+import { AuthContext } from "@/store/AuthContext";
 
 export default function FromAuth() {
   const router = useRouter();
+  const { setLoadingLogin } = useContext(AuthContext);
   const [isTextSignIn, setIsTextSignIn] = useState(true);
-  const [loadingLogin, setLoadingLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -90,10 +90,6 @@ export default function FromAuth() {
       handlerSignUp();
     }
   };
-
-  if (loadingLogin) {
-    return <Loading />;
-  }
 
   return (
     <SpringMotion className="w-full fixed bottom-10 flex justify-center">
