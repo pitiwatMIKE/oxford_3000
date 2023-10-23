@@ -1,15 +1,18 @@
 import Loading from "@/components/Loading";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 
 interface UserInfo {
   email: string | null;
 }
+interface Props {
+  children: ReactNode;
+}
 
 const AuthContext = createContext<Partial<UserInfo>>({});
 
-export default function AuthContextProvider({ children }: any) {
+export default function AuthContextProvider({ children }: Props) {
   const router = useRouter();
   const { data: session, status } = useSession();
 

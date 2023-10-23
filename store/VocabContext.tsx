@@ -1,16 +1,20 @@
 import { Vocab } from "@/models/Vocal";
-import { createContext, useEffect, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
+
+interface Props {
+  children: ReactNode;
+}
 
 export const VocabContext = createContext<Vocab[]>([]);
 
-export default function VocabContextProvider({ children }: any) {
+export default function VocabContextProvider({ children }: Props) {
   const [vocabList, setVocabList] = useState<Vocab[]>([]);
 
   useEffect(() => {
     const getVocab = async () => {
       const key = "vocabList";
       const jsonVocab = localStorage.getItem(key);
-      
+
       if (jsonVocab) {
         setVocabList(JSON.parse(jsonVocab));
       } else {

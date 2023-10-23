@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FcContacts, FcUnlock } from "react-icons/fc";
 import Loading from "./Loading";
+import SpringMotion from "./layout/SpringMotion";
 
 export default function FromAuth() {
   const router = useRouter();
@@ -95,7 +96,7 @@ export default function FromAuth() {
   }
 
   return (
-    <div className="w-full fixed bottom-10 flex justify-center">
+    <SpringMotion className="w-full fixed bottom-10 flex justify-center">
       <div className="w-5/6 max-w-sm h-64 bg-custom-secondary rounded-md shadow-lg p-3">
         <div className="w-full flex justify-center">
           <h1 className="mb-2 text-center font-bold text-lg">OXFORD 3000</h1>
@@ -143,6 +144,6 @@ export default function FromAuth() {
           </div>
         </form>
       </div>
-    </div>
+    </SpringMotion>
   );
 }
