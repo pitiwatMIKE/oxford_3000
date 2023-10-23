@@ -14,11 +14,13 @@ export default function AuthContextProvider({ children }: any) {
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (session) {
-      router.push("/");
-      setValue();
-    } else {
-      router.push("/login");
+    if (status === "authenticated") {
+      if (session) {
+        router.push("/");
+        setValue();
+      } else {
+        router.push("/login");
+      }
     }
   }, []);
 
