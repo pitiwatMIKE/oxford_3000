@@ -6,7 +6,7 @@ interface Props {
 
 export default function VocabItem({ vocab }: Props) {
   return (
-    <div className="shadow-md w-44 m-2 p-2 bg-custom-primary outline outline-custom-text">
+    <div className="shadow-md w-36 m-2 p-2 bg-custom-primary outline outline-custom-text">
       <span>{vocab.eng}</span>
     </div>
   );

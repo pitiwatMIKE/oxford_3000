@@ -13,7 +13,7 @@ export default function VocabList() {
   };
 
   return (
-    <FadeInMotion className="flex flex-wrap justify-center">
+    <FadeInMotion className="flex flex-wrap justify-around mt-6">
       {renderVocabList()}
     </FadeInMotion>
   );
