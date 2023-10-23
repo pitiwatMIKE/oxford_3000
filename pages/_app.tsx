@@ -12,9 +12,9 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
+      <Toaster position="top-center" />
       <AuthContextProvider>
         <VocabContextProvider>
-          <Toaster position="top-center" />
           <ButtonSignOut />
           <Component {...pageProps} />
         </VocabContextProvider>
