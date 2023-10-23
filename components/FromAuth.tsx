@@ -69,7 +69,7 @@ export default function FromAuth() {
       const result = await res.json();
       if (res.ok) {
         toast.success("Sign Up Success");
-        handlerSignIn();
+        await handlerSignIn();
       } else {
         result?.message
           ? toast.error(result.message)
