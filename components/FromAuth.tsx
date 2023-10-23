@@ -53,26 +53,30 @@ export default function FromAuth() {
   };
 
   const handlerSignUp = async () => {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_API + "/user/register",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    );
+    setLoadingLogin(true);
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_BACKEND_API + "/user/register",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
 
-    const result = await res.json();
-    if (res.ok) {
-      setIsTextSignIn(true);
-      toast.success("Sign Up Success");
-      handlerSignIn();
-    } else {
-      result?.message
-        ? toast.error(result.message)
-        : toast.error("Sign Up Failed");
+      const result = await res.json();
+      if (res.ok) {
+        toast.success("Sign Up Success");
+        handlerSignIn();
+      } else {
+        result?.message
+          ? toast.error(result.message)
+          : toast.error("Sign Up Failed");
+      }
+    } finally {
+      setLoadingLogin(false);
     }
   };
 
