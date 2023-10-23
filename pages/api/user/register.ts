@@ -18,7 +18,7 @@ class RegisterApi extends ApiCustom {
 
   async register() {
     try {
-      const userBody: User = this.req.body;
+      const userBody: User = JSON.parse(this.req.body);
 
       if (
         !userBody.email ||

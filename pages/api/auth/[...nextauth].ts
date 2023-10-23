@@ -12,7 +12,7 @@ export const authOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
@@ -30,14 +30,14 @@ export const authOptions = {
             headers: { "Content-Type": "application/json" },
           }
         );
-        const user = await res.json();
+        const result = await res.json();
 
         // If no error and we have user data, return it
-        if (res.ok && user) {
-          return user;
+        if (res.ok && result) {
+          return result;
+        } else {
+          throw new Error(result?.message);
         }
-        // Return null if user data could not be retrieved
-        return null;
       },
     }),
   ],

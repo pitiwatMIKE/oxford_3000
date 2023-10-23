@@ -1,6 +1,5 @@
 import { VocabContext } from "@/store/VocabContext";
 import React, { useContext } from "react";
-import { signOut } from "next-auth/react";
 
 export default function Home() {
   const vocabList = useContext(VocabContext);
@@ -11,7 +10,6 @@ export default function Home() {
   return (
     <div>
       <h1>Home page</h1>
-      <button onClick={() => signOut()}>sign out</button>
       <hr />
       {renderVocabList()}
     </div>
